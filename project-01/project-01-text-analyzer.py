@@ -45,22 +45,39 @@ else:
     print("Wrong input. Select number 1, 2 or 3.")
     quit()
 
-if selected_number == '1':
-    word_count = len(TEXTS[0].split())
-    print(f"There are {word_count} words in the selected text.")
+split_text = TEXTS[int(selected_number) -1].split()
 
-# Pro vybraný text spočítá následující statistiky:
+word_counter = len(split_text)
 
-# počet slov,
-# počet slov začínajících velkým písmenem,
-# počet slov psaných velkými písmeny,
-# počet slov psaných malými písmeny,
-# počet čísel (ne cifer),
-# sumu všech čísel (ne cifer) v textu.
+titlecase_counter = 0
+for word in split_text:
+    if word.istitle():
+        titlecase_counter += 1
 
-# There are 54 words in the selected text.
-# There are 12 titlecase words.
-# There are 1 uppercase words.
-# There are 38 lowercase words.
-# There are 3 numeric strings.
-# The sum of all the numbers 8510
+lowercase_counter = 0
+for word in split_text:
+    if word.islower():
+        lowercase_counter += 1
+
+uppercase_counter = 0
+for word in split_text:
+    if word.isupper() and word.isalpha():
+        uppercase_counter += 1
+
+numeric_counter = 0
+for word in split_text:
+    if word.isnumeric():
+        numeric_counter += 1
+
+numeric_list = []
+for word in split_text:
+    if word.isnumeric():
+        numeric_list.append(int(word))
+numeric_sum = sum(numeric_list)
+
+print(f"There are {word_counter} words in the selected text.")
+print(f"There are {titlecase_counter} titlecase words.")
+print(f"There are {uppercase_counter} uppercase words.")
+print(f"There are {lowercase_counter} lowercase words.")
+print(f"There are {numeric_counter} numeric strings.")
+print(f"The sum of all the numbers {numeric_sum}.")
