@@ -38,7 +38,7 @@ else:
     quit()
 
 
-selected_number = input("Enter a number btw. 1 and 3 to select:")
+selected_number = input("Enter a number btw. 1 and 3 to select: ")
 if selected_number.isdigit() and int(selected_number) in range(1, 4):
     print(separator)
 else:
@@ -81,3 +81,29 @@ print(f"There are {uppercase_counter} uppercase words.")
 print(f"There are {lowercase_counter} lowercase words.")
 print(f"There are {numeric_counter} numeric strings.")
 print(f"The sum of all the numbers {numeric_sum}.")
+
+print(separator)
+
+word_lengths = {}
+for word in split_text:
+    word_length = len(word)
+
+    if word_length in word_lengths:
+        word_lengths[word_length] += 1
+    else:
+        word_lengths[word_length] = 1
+
+sorted_items = sorted(word_lengths.items())
+
+
+def format_table(data):
+    max_len = max(len(str(item[0])) for item in data)
+
+    print(f"{'LEN': <4}| {'OCCURRENCES': ^16}| NR.")
+    print(separator)
+
+    for item in data:
+        length, occurrences = item
+        print(f"{length: <4}| {'*' * occurrences: <16}| {occurrences}")
+
+format_table(sorted_items)
