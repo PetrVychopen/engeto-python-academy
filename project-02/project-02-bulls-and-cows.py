@@ -12,6 +12,15 @@ def generate_secret_number():
     digits = random.sample(range(1, 10), 4)
     return ''.join(map(str, digits))
 
+# Old version of secret number generator
+
+# def generate_secret_number():
+#     digits = random.sample(range(1, 10), 4)
+#     result = ''
+#     for digit in digits:
+#         result += str(digit)
+#     return result
+
 print("Hi there!")
 print("-----------------------------------------------")
 print("I've generated a random 4 digit number for you.")
