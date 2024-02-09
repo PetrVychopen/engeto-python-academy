@@ -40,8 +40,9 @@ while True:
     attempts += 1
 
     # Validity check for guessed number
-    if not guess.isdigit() or len(guess) != 4 or len(set(guess)) != 4 or guess[0] == '0':
-        print("Invalid guess. Please enter a 4-digit number with unique digits and not starting with 0.")
+    if not guess.isdigit() or len(guess) != 4 or len(set(guess)) \
+        != 4 or guess[0] == '0':
+        print("Enter a 4-digit unique numbers not starting with 0.")
         continue
 
     # Calculate bulls
@@ -57,11 +58,13 @@ while True:
     cows -= bulls
 
     # Display statistics of guessed number
-    print(f"{bulls} {'bull' if bulls == 1 else 'bulls'}, {cows} {'cow' if cows == 1 else 'cows'}")
+    print(f"{bulls} {'bull' if bulls == 1 else 'bulls'}, "
+          f"{cows} {'cow' if cows == 1 else 'cows'}")
 
     # Check for correct guess
     if bulls == 4:
-        print(f"Correct! You've guessed the right number in {attempts} {'guess' if attempts == 1 else 'guesses'}!")
+        print(f"Correct! You've guessed the right number in "
+              f"{attempts} {'guess' if attempts == 1 else 'guesses'}!")
         break
 
 # Print a win message
