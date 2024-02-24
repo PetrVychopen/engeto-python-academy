@@ -5,6 +5,41 @@ author: Petr Vychopeň
 email: vychopen.petr@gmail.com
 discord: Petr V. Psycholino#0224
 """
+"""
+Co by jsi měl/a zlepšit:
+[x] řádek 43 a 44: zbytečně převádíš input, který už je string znovu na string
+[] při ověření uživatele bych trochu více rozepsal podmínky pro chyby jako 
+    špatné heslo, špatný username místo pouze jednoho else
+[] řádek 62 a podmínka in range(1,4), tady je mnohem lepší místo pevně dané 
+    4ky pracovat s délkou listu TEXTS, protože kód potom bude fungovat vždy pro 
+    všechny texty v tom listu. Například kdyby ti někdo do toho listu přidal 
+    dalších 100 textů, protože je chce analyzovat, tak tvůj kod by fungoval vždy 
+    p  ouze pro čtyři a musel bys přepsat kód. V nejlepším případě chceme vše 
+    automatizovat a vyhnout se manuálnímu nebo pevně daném přiřazování, takže 
+    použít délku listu do podmínky + všech printů kde pracuješ s počtem textů
+[] chybí mi čištění slov od znaků nějakou metodou jako strip, aby ses zbavil 
+    čarek za slovy. Split tohle neřeší a potom ty výsledky nejsou úplně přesné
+[] používáš několikrát furt ten samý for loop, což se nabízí použít pouze 
+    jednou a všechno to sčítání si řídit přes podmínky. Tímto způsobem bude kód 
+    asi 5x rychlejší, protože nebude 5x procházet ten stejný loop a kód bude 
+    mnohem kratší a přehlednější
+[x] pokud používáš funkce, tak funkce musí být definovány nahoře před hlavním 
+    chodem kódu a né uprostřed kódu
+"""
+import os
+
+def format_table(data):
+    max_len = max(len(str(item[0])) for item in data)
+
+    print(f"{'LEN': <4}| {'OCCURRENCES': ^16}| NR.")
+    print(separator)
+
+    for item in data:
+        length, occurrences = item
+        print(f"{length: <4}| {'*' * occurrences: <16}| {occurrences}")
+
+# Clear screen
+os.system('cls')
 
 # NOTE: Not the best practice (security)
 
@@ -20,8 +55,8 @@ registered_users = {
 
 # TODO: asterisks while typing
 
-user_username = str(input("Username: "))
-user_password = str(input("Password: "))
+user_username = input("Username: ")
+user_password = input("Password: ")
 
 separator = 40 * "-"
 
@@ -34,7 +69,7 @@ if user_username in registered_users and \
     print(separator)
 
 else:
-    print("unregistered user, terminating the program..")
+    print("Unregistered user, terminating the program..")
     quit()
 
 
@@ -96,14 +131,5 @@ for word in split_text:
 sorted_items = sorted(word_lengths.items())
 
 
-def format_table(data):
-    max_len = max(len(str(item[0])) for item in data)
-
-    print(f"{'LEN': <4}| {'OCCURRENCES': ^16}| NR.")
-    print(separator)
-
-    for item in data:
-        length, occurrences = item
-        print(f"{length: <4}| {'*' * occurrences: <16}| {occurrences}")
 
 format_table(sorted_items)
