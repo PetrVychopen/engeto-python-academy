@@ -10,7 +10,7 @@ Co by jsi měl/a zlepšit:
 [x] řádek 43 a 44: zbytečně převádíš input, který už je string znovu na string
 [] při ověření uživatele bych trochu více rozepsal podmínky pro chyby jako 
     špatné heslo, špatný username místo pouze jednoho else
-[] řádek 62 a podmínka in range(1,4), tady je mnohem lepší místo pevně dané 
+[x] řádek 62 a podmínka in range(1,4), tady je mnohem lepší místo pevně dané 
     4ky pracovat s délkou listu TEXTS, protože kód potom bude fungovat vždy pro 
     všechny texty v tom listu. Například kdyby ti někdo do toho listu přidal 
     dalších 100 textů, protože je chce analyzovat, tak tvůj kod by fungoval vždy 
@@ -74,7 +74,7 @@ else:
 
 
 selected_number = input("Enter a number btw. 1 and 3 to select: ")
-if selected_number.isdigit() and int(selected_number) in range(1, 4):
+if selected_number.isdigit() and int(selected_number) in range(1, len(TEXTS)):
     print(separator)
 else:
     print("Wrong input. Select number 1, 2 or 3.")
