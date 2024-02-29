@@ -9,6 +9,9 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
+# Clear screen
+os.system('cls')
+
 # Check the URL response
 try:
   url = "https://volby.cz/pls/ps2017nss/ps3?xjazyk=CZ"
