@@ -14,8 +14,6 @@ from bs4 import BeautifulSoup
 # Clear screen
 os.system("cls")
 
-import sys
-
 requested_url = sys.argv[1]
 saved_file = sys.argv[2]
 
