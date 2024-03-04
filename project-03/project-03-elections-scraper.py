@@ -12,7 +12,7 @@ from pprint import pprint
 from bs4 import BeautifulSoup
 
 # Clear screen
-os.system('cls')
+os.system("cls")
 
 import sys
 
@@ -20,6 +20,9 @@ requested_url = sys.argv[1]
 saved_file = sys.argv[2]
 
 # Feedback for user (url, filename)
+header_requested_url = f"Requested URL: {requested_url}"
+header_saved_file = f"Data will be saved to: {saved_file}"
 
-print(f"Requested URL: {requested_url}")
-print(f"Data will be saved to file: {saved_file}")
+print(header_requested_url)
+print(header_saved_file)
+print("-" * len(header_requested_url))
