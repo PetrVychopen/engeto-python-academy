@@ -41,8 +41,18 @@ html_text = response.text
 extract_center_links(html_text)
 extracted_links = extract_center_links(html_text)
 
+# Create an empty set to store unique links
+unique_links = set()
+
+# Check if there are any extracted links
 if extracted_links:
-  for link in extracted_links:
-    print("https://volby.cz/pls/ps2017nss/" + link)
+    # Iterate through the extracted links
+    for link in extracted_links:
+        # Add the link to the set of unique links
+        unique_links.add("https://volby.cz/pls/ps2017nss/" + link)
+
+    # Iterate through the unique links and perform further operations
+    for link in sorted(unique_links):
+        print(link)
 else:
-  print("No links found within td elements with class 'center'")
+    print("No links found within td elements with class 'center'")
