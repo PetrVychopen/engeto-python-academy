@@ -43,6 +43,6 @@ extracted_links = extract_center_links(html_text)
 
 if extracted_links:
   for link in extracted_links:
-    print(link)
+    print("https://volby.cz/pls/ps2017nss/" + link)
 else:
   print("No links found within td elements with class 'center'")
