@@ -10,6 +10,7 @@ discord: Petr V. Psycholino#0224
 import os
 import csv
 import sys
+import logging
 import requests
 from pprint import pprint
 from bs4 import BeautifulSoup
@@ -55,8 +56,14 @@ if extracted_links:
         # Add the link to the set of unique links
         unique_links.add("https://volby.cz/pls/ps2017nss/" + link)
 
+    # Configuration for basic logging
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
     # Iterate through the unique links and perform further operations
     for link in sorted(unique_links):
+        # Feedback for user that the process is running
+        logging.info(f"Iterating over link: {link}")
+        
         response_subpages = requests.get(link)
         html_text_subpages = response_subpages.text
 
