@@ -8,11 +8,14 @@ discord: Petr V. Psycholino#0224
 
 # Mandatory modules
 import os
+import csv
 import sys
 import requests
 from pprint import pprint
 from bs4 import BeautifulSoup
 from link_extractor import extract_center_links
+from code_number_extractor import extract_municipality_code
+from name_exctractor import extract_municipality_name
 
 # Clear screen
 os.system("cls")
@@ -43,6 +46,7 @@ extracted_links = extract_center_links(html_text)
 
 # Create an empty set to store unique links
 unique_links = set()
+municipality_data = {}
 
 # Check if there are any extracted links
 if extracted_links:
@@ -53,6 +57,43 @@ if extracted_links:
 
     # Iterate through the unique links and perform further operations
     for link in sorted(unique_links):
-        print(link)
+        response_subpages = requests.get(link)
+        html_text_subpages = response_subpages.text
+
+        extracted_code = extract_municipality_code(html_text_subpages)
+        extracted_name = extract_municipality_name(html_text_subpages)
+
+        # Add the data to the dictionary
+        municipality_data[extracted_code] = {
+            'code': extracted_code, 
+            'location': extracted_name
+            }
+        break
+
+    # Define the CSV file name based on the provided argument
+    csv_file = saved_file
+
+    # Define the CSV file name based on the provided argument
+    csv_file = saved_file
+
+    # Define the fieldnames for the CSV file
+    fieldnames = ['code', 'location']
+
+    # Write the data to the CSV file (override mode)
+    with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+
+        # Write the header
+        writer.writeheader()
+
+        # Write each row of data
+        for code, data in municipality_data.items():
+            writer.writerow({
+                'code': data['code'],
+                'location': data['location']
+            })
+
+    print(f"CSV file '{csv_file}' has been created successfully.")
+
 else:
     print("No links found within td elements with class 'center'")
