@@ -71,7 +71,6 @@ if extracted_links:
 
         extracted_code = extract_municipality_code(html_text_subpages)
         extracted_name = extract_municipality_name(html_text_subpages)
-        extracred_vote = 
 
         # Add the data to the dictionary
         municipality_data[extracted_code] = {
