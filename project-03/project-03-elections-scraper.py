@@ -17,6 +17,7 @@ from bs4 import BeautifulSoup
 from link_extractor import extract_center_links
 from code_number_extractor import extract_municipality_code
 from location_extractor import extract_municipality_name
+from voters_list_extractor import extract_voters
 
 # Clear screen
 os.system("cls")
