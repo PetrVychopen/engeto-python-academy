@@ -23,6 +23,6 @@ def extract_voters(html_text):
                     
                     # Return the count
                     return count
-    
+                
     # Return None if scraping fails
     return None
