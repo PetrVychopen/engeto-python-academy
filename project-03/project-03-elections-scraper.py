@@ -5,28 +5,24 @@ author: Petr Vychopeň
 email: vychopen.petr@gmail.com
 discord: Petr V. Psycholino#0224
 """
-
 # Mandatory modules
 import os
 import csv
 import sys
 import logging
 import requests
-from pprint import pprint
 from bs4 import BeautifulSoup
 from link_extractor import extract_center_links
 from code_number_extractor import extract_municipality_code
 from location_extractor import extract_municipality_name
-from voters_list_extractor import extract_voters
+from voters_list_extractor import extract_data_dict
 
 # Clear screen
 os.system("cls")
 
-
 # Declaration of arguments
 requested_url = sys.argv[1]
 saved_file = sys.argv[2]
-
 
 # Feedback for user (URL, filename)
 header_requested_url = f"Requested URL: {requested_url}"
@@ -34,13 +30,11 @@ header_saved_file = f"Data will be saved to: {saved_file}"
 
 print(header_requested_url)
 print(header_saved_file)
-print("-" * len(header_requested_url))
-
+print("-" * max(len(header_requested_url), len(header_saved_file)))
 
 # Get HTML code from requested URL as string
 response = requests.get(requested_url)
 html_text = response.text
-
 
 # Get tags and print all related links
 extract_center_links(html_text)
@@ -71,21 +65,26 @@ if extracted_links:
 
         extracted_code = extract_municipality_code(html_text_subpages)
         extracted_location = extract_municipality_name(html_text_subpages)
-        extracted_voters = extract_voters(html_text_subpages)
+        extracted_voters = extract_data_dict(html_text_subpages)
+        
+        # Check the extracted voter data dictionary
+        # print("Extracted voters data:", extracted_voters)  
 
         # Add the data to the dictionary
         municipality_data[extracted_code] = {
             'code': extracted_code, 
             'location': extracted_location,
-            'registered': extracted_voters
-            }
-        break
+            'registered': extracted_voters.get('Voličiv seznamu'),
+            'envelopes': extracted_voters.get('Vydanéobálky'),
+            'valid': extracted_voters.get('Platnéhlasy'),
+        }
+        #break
 
     # Define the CSV file name based on the provided argument
     csv_file = saved_file
 
     # Define the fieldnames for the CSV file
-    fieldnames = ['code', 'location', 'registered']
+    fieldnames = ['code', 'location', 'registered', 'envelopes', 'valid']
 
     # Write the data to the CSV file (override mode)
     with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
@@ -99,7 +98,9 @@ if extracted_links:
             writer.writerow({
                 'code': data['code'],
                 'location': data['location'],
-                'registered': data[extracted_voters]
+                'registered': data['registered'],
+                'envelopes': data['envelopes'],
+                'valid': data['valid']
             })
 
     print(f"CSV file '{csv_file}' has been created successfully.")

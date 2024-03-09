@@ -1,28 +1,28 @@
 from bs4 import BeautifulSoup
 
-def extract_voters(html_text):
+def extract_data_dict(html_text):
     # Create a BeautifulSoup object
     soup = BeautifulSoup(html_text, 'html.parser')
     
-    # Find all <th> tags containing the string 'Voliči'
-    volici_tags = soup.find_all('th', string=lambda text: text and 'Voliči' in text)
+    # Initialize an empty dictionary to store the data
+    data_dict = {}
     
-    # Check if any matching tags are found
-    if volici_tags:
-        # Iterate over each matching tag
-        for volici_tag in volici_tags:
-            # Check if 'v seznamu' is present in the text content of the tag
-            if 'v seznamu' in volici_tag.text:
-                # Find the corresponding <td> tag containing the count
-                count_cell = volici_tag.find_next('td', class_='cislo')
-                
-                # Check if the count_cell is found
-                if count_cell:
-                    # Extract the count and remove any non-breaking space characters
-                    count = count_cell.get_text(strip=True).replace('\xa0', '')
-                    
-                    # Return the count
-                    return count
-                
-    # Return None if scraping fails
-    return None
+    # Find all <th> elements
+    th_elements = soup.find_all('th')
+    
+    # Find all corresponding <td> elements
+    for th_element in th_elements:
+        # Get the id attribute of the <th> element
+        th_id = th_element.get('id')
+        
+        # Find the corresponding <td> element
+        td_element = soup.find('td', headers=th_id)
+        
+        # If a corresponding <td> element is found, add data to the dictionary
+        if td_element:
+            # Remove &nbsp; from td text
+            td_text = td_element.get_text(strip=True)
+            td_text = td_text.replace('\xa0', '')  # Remove &nbsp;
+            data_dict[th_element.get_text(strip=True)] = td_text
+
+    return data_dict
