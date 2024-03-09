@@ -11,7 +11,8 @@ Provide the URL of the website containing the election data and the filename for
 python election_data_scraper.py <requested_url> <saved_file>
 
 ### Example:
-`python election_data_scraper.py 'https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103' 'prostejov_results.csv'`
+`python election_data_scraper.py 'https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103' prostejov_results.csv`
+
 Replace <requested_url> with the URL of the website containing the election data, and <saved_file> with the desired filename for saving the extracted data.
 
 View the Results
