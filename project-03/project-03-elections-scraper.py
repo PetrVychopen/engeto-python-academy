@@ -5,7 +5,7 @@ author: Petr Vychopeň
 email: vychopen.petr@gmail.com
 discord: Petr V. Psycholino#0224
 """
-# Mandatory modules
+
 import os
 import csv
 import sys
@@ -16,6 +16,7 @@ from link_extractor import extract_center_links
 from code_number_extractor import extract_municipality_code
 from location_extractor import extract_municipality_name
 from voters_list_extractor import extract_data_dict
+from party_extractor import extract_party_table
 
 # Clear screen
 os.system("cls")
@@ -66,17 +67,16 @@ if extracted_links:
         extracted_code = extract_municipality_code(html_text_subpages)
         extracted_location = extract_municipality_name(html_text_subpages)
         extracted_voters = extract_data_dict(html_text_subpages)
+        party_table_data = extract_party_table(html_text_subpages)
         
-        # Check the extracted voter data dictionary
-        # print("Extracted voters data:", extracted_voters)  
-
         # Add the data to the dictionary
-        municipality_data[extracted_code] = {
+        municipality_data[extracted_location] = {
             'code': extracted_code, 
             'location': extracted_location,
             'registered': extracted_voters.get('Voličiv seznamu'),
             'envelopes': extracted_voters.get('Vydanéobálky'),
             'valid': extracted_voters.get('Platnéhlasy'),
+            **party_table_data  # Unpack party_table_data
         }
         #break
 
@@ -84,7 +84,23 @@ if extracted_links:
     csv_file = saved_file
 
     # Define the fieldnames for the CSV file
-    fieldnames = ['code', 'location', 'registered', 'envelopes', 'valid']
+    fieldnames = [
+        'code', 'location', 'registered', 
+        'envelopes', 'valid', 
+        *set.union(*[set(data.keys()) for data in municipality_data.values()])
+    ]
+    # Remove duplicates from fieldnames
+    fieldnames = list(set(fieldnames))
+    
+    # Define the desired order of fieldnames
+    desired_order = [
+        'code', 'location', 'registered', 
+        'envelopes', 'valid'
+        ]
+
+    # Sort the fieldnames list based on the desired order
+    fieldnames = \
+        desired_order + sorted(list(set(fieldnames) - set(desired_order)))
 
     # Write the data to the CSV file (override mode)
     with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
@@ -94,14 +110,8 @@ if extracted_links:
         writer.writeheader()
 
         # Write each row of data
-        for code, data in municipality_data.items():
-            writer.writerow({
-                'code': data['code'],
-                'location': data['location'],
-                'registered': data['registered'],
-                'envelopes': data['envelopes'],
-                'valid': data['valid']
-            })
+        for location, data in sorted(municipality_data.items()):
+            writer.writerow(data)
 
     print(f"CSV file '{csv_file}' has been created successfully.")
 
