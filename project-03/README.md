@@ -27,6 +27,7 @@ Once the script finishes execution, a CSV file named data.csv (or the specified 
 
 ## Snapshot of the running script
 
+"""
 Requested URL: https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=1&xnumnuts=1100
 Data will be saved to: vysledky.csv
 ----------------------------------------------------------------------------------
@@ -36,6 +37,7 @@ Data will be saved to: vysledky.csv
 ...
 
 CSV file 'vysledky.csv' has been created successfully.
+"""
 
 ### Sneekpeak of CSV results
 code,location,registered,envelopes,valid, ...
