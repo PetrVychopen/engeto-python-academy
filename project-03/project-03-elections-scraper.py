@@ -28,12 +28,14 @@ try:
     saved_file = sys.argv[2]
     
     # Check if the first argument is a valid URL
-    if not requested_url.startswith("http://") and not requested_url.startswith("https://"):
+    if not requested_url.startswith("http://") \
+        and not requested_url.startswith("https://"):
         raise ValueError("Error: The first argument should be a valid URL.")
 
 except IndexError:
     # Print error message and exit if arguments are missing
-    print("Error: Please provide the requested URL as the first argument and the filename as the second argument.")
+    print("Error: Please provide the requested URL as the first argument \
+          and the filename as the second argument.")
     sys.exit(1)
 except ValueError as ve:
     # Print the specific error message and exit
