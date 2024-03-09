@@ -21,9 +21,15 @@ from party_extractor import extract_party_table
 # Clear screen
 os.system("cls")
 
-# Declaration of arguments
-requested_url = sys.argv[1]
-saved_file = sys.argv[2]
+# Check if command-line arguments are provided
+try:
+    # Declaration of arguments
+    requested_url = sys.argv[1]
+    saved_file = sys.argv[2]
+except IndexError:
+    # Print error message and exit if arguments are missing
+    print("Error: Please provide the requested URL and the filename as command-line arguments.")
+    sys.exit(1)
 
 # Feedback for user (URL, filename)
 header_requested_url = f"Requested URL: {requested_url}"
