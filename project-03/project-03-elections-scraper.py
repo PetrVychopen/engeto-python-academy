@@ -71,11 +71,13 @@ if extracted_links:
 
         extracted_code = extract_municipality_code(html_text_subpages)
         extracted_location = extract_municipality_name(html_text_subpages)
+        extracted_voters = extract_voters(html_text_subpages)
 
         # Add the data to the dictionary
         municipality_data[extracted_code] = {
             'code': extracted_code, 
-            'location': extracted_location
+            'location': extracted_location,
+            'registered': extracted_voters
             }
         break
 
@@ -83,7 +85,7 @@ if extracted_links:
     csv_file = saved_file
 
     # Define the fieldnames for the CSV file
-    fieldnames = ['code', 'location']
+    fieldnames = ['code', 'location', 'registered']
 
     # Write the data to the CSV file (override mode)
     with open(csv_file, mode='w', newline='', encoding='utf-8') as file:
@@ -96,7 +98,8 @@ if extracted_links:
         for code, data in municipality_data.items():
             writer.writerow({
                 'code': data['code'],
-                'location': data['location']
+                'location': data['location'],
+                'registered': data[extracted_voters]
             })
 
     print(f"CSV file '{csv_file}' has been created successfully.")
