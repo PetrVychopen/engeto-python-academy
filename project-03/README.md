@@ -38,6 +38,6 @@ Data will be saved to: vysledky.csv<br>
 
 CSV file 'vysledky.csv' has been created successfully.
 
-### Sneekpeak of CSV results
-code,location,registered,envelopes,valid, ...
+## Sneekpeak of CSV results
+code,location,registered,envelopes,valid, ...<br>
 500054,Praha 1,21556,14167,14036, ...
