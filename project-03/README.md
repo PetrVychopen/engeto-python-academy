@@ -6,7 +6,7 @@ This script extracts election data from a specified URL and saves it to a CSV fi
 `pip install -r requirements.txt`
 Run the Script
 
-# Provide the URL of the website containing the election data and the filename for saving the extracted data as command-line arguments.
+Provide the URL of the website containing the election data and the filename for saving the extracted data as command-line arguments.
 python election_data_scraper.py <requested_url> <saved_file>
 
 ### Example:
