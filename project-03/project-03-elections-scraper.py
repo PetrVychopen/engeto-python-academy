@@ -16,8 +16,7 @@ from pprint import pprint
 from bs4 import BeautifulSoup
 from link_extractor import extract_center_links
 from code_number_extractor import extract_municipality_code
-from name_extractor import extract_municipality_name
-from vote_extractor import extract_data_from_table
+from location_extractor import extract_municipality_name
 
 # Clear screen
 os.system("cls")
@@ -70,12 +69,12 @@ if extracted_links:
         html_text_subpages = response_subpages.text
 
         extracted_code = extract_municipality_code(html_text_subpages)
-        extracted_name = extract_municipality_name(html_text_subpages)
+        extracted_location = extract_municipality_name(html_text_subpages)
 
         # Add the data to the dictionary
         municipality_data[extracted_code] = {
             'code': extracted_code, 
-            'location': extracted_name
+            'location': extracted_location
             }
         break
 
