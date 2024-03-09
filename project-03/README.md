@@ -29,7 +29,7 @@ Once the script finishes execution, a CSV file named data.csv (or the specified 
 
 Requested URL: https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=1&xnumnuts=1100<br>
 Data will be saved to: vysledky.csv<br>
-----------------------------------------------------------------------------------
+\----------------------------------------------------------------------------------
 
 2024-03-09 16:52:40,668 - INFO - Iterating over link: https://volby.cz/pls/ps2017nss/ps311?xjazyk=CZ&xkraj=1&xobec=500054&xvyber=1100<br>
 2024-03-09 16:52:41,304 - INFO - Iterating over link: https://volby.cz/pls/ps2017nss/ps311?xjazyk=CZ&xkraj=1&xobec=500089&xvyber=1100<br>
