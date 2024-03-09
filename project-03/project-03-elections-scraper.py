@@ -16,7 +16,8 @@ from pprint import pprint
 from bs4 import BeautifulSoup
 from link_extractor import extract_center_links
 from code_number_extractor import extract_municipality_code
-from name_exctractor import extract_municipality_name
+from name_extractor import extract_municipality_name
+from vote_extractor import extract_data_from_table
 
 # Clear screen
 os.system("cls")
@@ -57,7 +58,8 @@ if extracted_links:
         unique_links.add("https://volby.cz/pls/ps2017nss/" + link)
 
     # Configuration for basic logging
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    logging.basicConfig(level=logging.INFO, \
+                        format='%(asctime)s - %(levelname)s - %(message)s')
 
     # Iterate through the unique links and perform further operations
     for link in sorted(unique_links):
@@ -69,6 +71,7 @@ if extracted_links:
 
         extracted_code = extract_municipality_code(html_text_subpages)
         extracted_name = extract_municipality_name(html_text_subpages)
+        extracred_vote = 
 
         # Add the data to the dictionary
         municipality_data[extracted_code] = {
@@ -76,9 +79,6 @@ if extracted_links:
             'location': extracted_name
             }
         break
-
-    # Define the CSV file name based on the provided argument
-    csv_file = saved_file
 
     # Define the CSV file name based on the provided argument
     csv_file = saved_file
